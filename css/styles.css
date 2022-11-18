@@ -1,0 +1,70 @@
+body div {
+    border: 1px solid black;
+}
+
+div, p {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+}
+
+#result {
+    height: 75px;
+}
+
+#calculator-buttons {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#calculator-main {
+    display: flex;
+    flex: 4;
+}
+
+#special-operation {
+    display: flex;
+    flex: 1;
+}
+
+#special-operation div{
+    flex: 1;
+}
+
+#numbers {
+    flex: 3;
+    display : flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+#numbers div {
+    width: calc(100% / 3);
+    /* padding: 1px 0; */
+}
+
+#operation {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#operation div{
+    flex: 1;
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
