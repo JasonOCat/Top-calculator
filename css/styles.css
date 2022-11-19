@@ -32,8 +32,7 @@ div, p {
     display: flex;
     justify-content: end;
     align-items: center;
-    border-left: 1px solid black; 
-    border-right: 1px solid black;
+    border: 1px solid black; 
     background-color: antiquewhite;
     padding-right: 5px;
     margin-bottom: 10px;
@@ -56,8 +55,10 @@ div, p {
 #special-operation {
     display: flex;
     flex: 1;
-    gap: 15px;
-    margin:10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 5px;
+    justify-content: space-around;
 }
 
 #special-operation div{
@@ -68,11 +69,12 @@ div, p {
     flex: 3;
     display : flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 5px;
+    justify-content: space-around;
 }
 
 #numbers div {
-    width: calc(100% / 3.5);
+    width: calc(100% / 3.1);
     /* padding: 1px 0; */
 }
 
@@ -80,7 +82,8 @@ div, p {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px
+    gap: 5px;
+    margin-left: 10px;
 }
 
 #operation div{
@@ -136,7 +139,7 @@ div, p {
 }
 
 #container {
-    background-color: rgb(114, 104, 104); 
+    background-color: lightgrey;
 }
 
 

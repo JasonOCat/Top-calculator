@@ -42,13 +42,13 @@ function divide(a, b) {
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
-            return Number(a + b).toFixed(7);
+            return parseFloat(Number(a + b).toFixed(7));
         case '-': 
-            return Number(a - b).toFixed(7);
+            return parseFloat(Number(a - b).toFixed(7));
         case '*': 
-            return Number(a * b).toFixed(7);
+            return parseFloat(Number(a * b).toFixed(7));
         case '/': 
-            return Number(a / b).toFixed(7);
+            return parseFloat(Number(a / b).toFixed(7));
         default:
             throw 'Illegal operation'
 
@@ -110,7 +110,7 @@ function updateOperatorDisplay(e) {
         if (isDividingBy0()) {
             return;
         }
-        calc.operationResult = operate(calc.operator, parseFloat(calc.previousOperand), parseFloat(calc.currentOperand)).toString();
+        calc.operationResult = operate(calc.operator, calc.previousOperand, calc.currentOperand).toString();
         calc.previousOperand = calc.operationResult;
         calc.currentOperand = '';
         calc.operator = e.target.textContent;
