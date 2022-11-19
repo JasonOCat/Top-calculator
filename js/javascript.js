@@ -6,23 +6,46 @@ const allCleanButton = document.querySelector('.button.clean');
 const equalsButton = document.querySelector('.button.equal');
 const decimalButton = document.querySelector('.button.decimal');
 
-  // add eventList end transition
-const buttons= document.querySelectorAll(".button");
+// add eventList end transition
+const buttons = document.querySelectorAll(".button");
 
 window.addEventListener('keydown', manageKey);
 
 function manageKey(e) {
-    const number = document.querySelector(`div[data-key="${e.keyCode}"]`);
-    console.log(number);
+
+    if (e.keyCode === 13) { // enter key
+        updateEqualsDisplay();
+    }
+
+    const keyPressed = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!keyPressed) {
+        return;
+    }
+    if (keyPressed.classList.contains("number")) {
+        updateOperandDisplay(keyPressed.textContent);
+        return;
+    }
+
+    if (keyPressed.classList.contains("operator")) {
+        updateOperatorDisplay(keyPressed.textContent);
+        return
+    }
+
+    if (keyPressed.classList.contains("decimal")) {
+        updateDecimalDisplay();
+        return
+    }
+
+
 }
 
 
 let calc = {
-    previousOperand:'0',
-    operator:'',
-    currentOperand:'',
-    operationResult:'',
-    displayValue:'0',
+    previousOperand: '0',
+    operator: '',
+    currentOperand: '',
+    operationResult: '',
+    displayValue: '0',
 }
 
 
@@ -30,16 +53,16 @@ screen.textContent = calc.previousOperand;
 
 
 function add(a, b) {
-	return a + b;
+    return a + b;
 };
 
 function subtract(a, b) {
-	return a - b;
+    return a - b;
 };
 
 
 function multiply(a, b) {
-  return a * b;
+    return a * b;
 };
 
 function divide(a, b) {
@@ -47,18 +70,18 @@ function divide(a, b) {
         throw "Division by 0 impossible";
     }
     return a / b;
-  };
+};
 
 
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
             return parseFloat(Number(Number(a) + Number(b)).toFixed(7));
-        case '-': 
+        case '-':
             return parseFloat(Number(a - b).toFixed(7));
-        case '*': 
+        case '*':
             return parseFloat(Number(a * b).toFixed(7));
-        case '/': 
+        case '/':
             return parseFloat(Number(a / b).toFixed(7));
         default:
             throw 'Illegal operation'
@@ -75,47 +98,56 @@ function isDividingBy0() {
 }
 
 
-function updateOperandDisplay(e) {
+function updateOperandDisplay(operand) {
     if (calc.displayValue.length > 30) { // don't manage operation with big operande
         return;
     }
-    if (calc.operator === '' ) { // No operator, so the user is typing the first operand
+    if (calc.operator === '') { // No operator, so the user is typing the first operand
 
-        if (calc.operationResult !=='') { // the user is calculating another operation (ex: result=19, the user is typing 6)
+        if (calc.operationResult !== '') { // the user is calculating another operation (ex: result=19, the user is typing 6)
             clean();
         }
-        if (calc.previousOperand === '0' ) { // We replace 0 (ex: 0 -> the user typed 9 so we replace 0 by 9)
-            calc.previousOperand = e.target.textContent
+        if (calc.previousOperand === '0') { // We replace 0 (ex: 0 -> the user typed 9 so we replace 0 by 9)
+            calc.previousOperand = operand
         } else {
-            calc.previousOperand += e.target.textContent;
+            calc.previousOperand += operand;
         }
 
         calc.displayValue = calc.previousOperand
     }
 
     else if (calc.operator !== '') { // Operator is already present, so the user is typing the second operand
-        if (calc.currentOperand === '' || calc.currentOperand ==='0') {// right operande is 0 or empty, we replace it (ex: 23 + 0, or 23 + '')
-            calc.currentOperand = e.target.textContent;
+        if (calc.currentOperand === '') {
+            // right operande is 0 or empty, we replace it (ex: 23 + 0, or 23 + '')
+            calc.currentOperand = operand;
             calc.displayValue += calc.currentOperand;
+        }
+        else if (calc.currentOperand === '0') {
+            calc.currentOperand = operand;
+            calc.displayValue = calc.displayValue.substring(0, calc.displayValue.length - 1) + operand;
         } else {
-            calc.currentOperand += e.target.textContent;
-            calc.displayValue += e.target.textContent;
+            calc.currentOperand += operand;
+            calc.displayValue += operand;
         }
 
     }
 
     screen.textContent = calc.displayValue;
     console.table(calc);
+
 }
 
-function updateOperatorDisplay(e) {
+
+
+
+function updateOperatorDisplay(operator) {
     if (endsWithOperator()) { // operator already present, we juste replace the operator (ex: 9+9+)
-        calc.operator = e.target.textContent;
-        calc.displayValue = calc.displayValue.substring(0, calc.displayValue.length-1) + calc.operator;
+        calc.operator = operator;
+        calc.displayValue = calc.displayValue.substring(0, calc.displayValue.length - 1) + calc.operator;
     }
 
     else if (calc.currentOperand === '' && calc.operator === '') { // case where we have only the first operand
-        calc.operator = e.target.textContent;
+        calc.operator = operator;
         calc.displayValue += calc.operator;
     }
 
@@ -126,7 +158,7 @@ function updateOperatorDisplay(e) {
         calc.operationResult = operate(calc.operator, calc.previousOperand, calc.currentOperand).toString();
         calc.previousOperand = calc.operationResult;
         calc.currentOperand = '';
-        calc.operator = e.target.textContent;
+        calc.operator = operator;
         calc.displayValue += calc.operator;
     }
 
@@ -134,7 +166,7 @@ function updateOperatorDisplay(e) {
     console.table(calc);
 }
 
-function updateEqualsDisplay(e) {
+function updateEqualsDisplay() {
 
     if (!calc.previousOperand || !calc.operator || !calc.currentOperand) {
         return;
@@ -153,25 +185,25 @@ function updateEqualsDisplay(e) {
     }
 }
 
-function updateDecimalDisplay(e) {
+function updateDecimalDisplay() {
     if (endsWithOperator()) {
         console.table(calc);
         return;
     }
 
-    if (calc.operator === '' ) { // No operator, so the user is typing the first operand
+    if (calc.operator === '') { // No operator, so the user is typing the first operand
         if (calc.previousOperand.includes('.')) {
             console.table(calc);
             return;
         }
 
         else {
-            calc.previousOperand += e.target.textContent;
+            calc.previousOperand += '.';
             screen.textContent = calc.previousOperand;
             console.table(calc);
         }
     }
-    
+
     else if (calc.operator !== '') { // Operator is already present, so the user is typing the second operand
         if (calc.currentOperand.includes('.')) {
             return;
@@ -180,8 +212,8 @@ function updateDecimalDisplay(e) {
             return
         }
         else {
-            calc.currentOperand += e.target.textContent;
-            calc.displayValue += e.target.textContent;
+            calc.currentOperand += '.';
+            calc.displayValue += '.';
             screen.textContent = calc.displayValue;
         }
         console.table(calc);
@@ -190,16 +222,16 @@ function updateDecimalDisplay(e) {
 }
 
 function endsWithOperator() {
-    const lastChar = calc.displayValue[calc.displayValue.length-1]
+    const lastChar = calc.displayValue[calc.displayValue.length - 1]
     return lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/';
 }
 
 function endsWithDecimal() {
-    const lastChar = calc.displayValue[calc.displayValue.length-1]
+    const lastChar = calc.displayValue[calc.displayValue.length - 1]
     return lastChar === '.';
 }
 
-function clean(){
+function clean() {
     calc.previousOperand = '0';
     calc.operator = '';
     calc.currentOperand = '';
@@ -211,9 +243,9 @@ function clean(){
 
 allCleanButton.addEventListener('mousedown', clean);
 
-numberButtons.forEach(number => number.addEventListener('mousedown', updateOperandDisplay));
+numberButtons.forEach(number => number.addEventListener('mousedown', (e) => updateOperandDisplay(e.target.textContent)));
 
-operationButtons.forEach(operation => operation.addEventListener('mousedown', updateOperatorDisplay));
+operationButtons.forEach(operation => operation.addEventListener('mousedown', (e) => updateOperatorDisplay(e.target.textContent)));
 
 decimalButton.addEventListener('mousedown', updateDecimalDisplay);
 
