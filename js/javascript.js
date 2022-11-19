@@ -15,7 +15,14 @@ function manageKey(e) {
 
     if (e.keyCode === 13) { // enter key
         updateEqualsDisplay();
+        return
     }
+
+    if (e.keyCode === 8) { // clear key
+        clean();
+        return
+    }
+
 
     const keyPressed = document.querySelector(`div[data-key="${e.keyCode}"]`);
     if (!keyPressed) {
