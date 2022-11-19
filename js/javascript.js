@@ -5,6 +5,16 @@ const allCleanButton = document.querySelector('.button.clean');
 const equalsButton = document.querySelector('.button.equal');
 const decimalButton = document.querySelector('.button.decimal');
 
+  // add eventList end transition
+const buttons= document.querySelectorAll(".button");
+
+window.addEventListener('keydown', manageKey);
+
+function manageKey(e) {
+    const number = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    console.log(number);
+}
+
 
 let calc = {
     previousOperand:'0',
@@ -42,7 +52,7 @@ function divide(a, b) {
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
-            return parseFloat(Number(a + b).toFixed(7));
+            return parseFloat(Number(Number(a) + Number(b)).toFixed(7));
         case '-': 
             return parseFloat(Number(a - b).toFixed(7));
         case '*': 
@@ -65,7 +75,9 @@ function isDividingBy0() {
 
 
 function updateOperandDisplay(e) {
-    
+    if (calc.displayValue.length > 30) { // don't manage operation with big operande
+        return;
+    }
     if (calc.operator === '' ) { // No operator, so the user is typing the first operand
 
         if (calc.operationResult !=='') { // the user is calculating another operation (ex: result=19, the user is typing 6)
