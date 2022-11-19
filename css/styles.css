@@ -1,14 +1,38 @@
 body {
-    margin-top: 100px;
+    margin: 0;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(156,181,150,0.44303658963585435) 0%, rgba(0,212,255,1) 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
+
 body div {
-    /* border: 1px solid black; */
     font-size: 18px;
     font-weight: 500;
 }
+
+#banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    font-size: 100px;
+    font-family: 'Calculator', sans-serif;
+}
+
+.footer {
+    color: #E5E7EB;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+    align-items: center;
+    color: rgb(24, 23, 23);
+    /* font-weight: 500; */
+
+  }
 
 
 div, p {
@@ -33,6 +57,8 @@ div, p {
     background-color: antiquewhite;
     border-radius: 5px;
     padding: 5px;
+    font-family: 'Calculator', sans-serif;
+
 }
 
 #previous-result {
@@ -40,7 +66,7 @@ div, p {
     display: flex;
     justify-content: end;
     align-items: center;
-    font-size: 18px;
+    font-size: 23px;
 }
 
 #result {
@@ -48,7 +74,8 @@ div, p {
     display: flex;
     justify-content: end;
     align-items: center;
-    font-size: 25px;
+    font-size: 40px;
+    font-weight: 400;
 }
 
 #calculator-buttons {
@@ -117,10 +144,6 @@ div, p {
     background-color: #faa;
 }
 
-.button.delete {
-    background-color: #aaf;
-}
-
 .button.number:hover,
 .button.decimal:hover,
 .button.operator:hover,
@@ -139,9 +162,14 @@ div, p {
 
 .button,
 #container,
-#special-operation div {
+.button.clean div {
     border: 1px solid black; 
     border-radius: 5px;
+}
+
+#special-operation#button-delete {
+    /* background-color: #aaf; */
+    border: 0px solid yellow; 
 }
 
 

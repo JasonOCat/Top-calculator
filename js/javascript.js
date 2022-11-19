@@ -1,5 +1,6 @@
 const numberButtons = document.querySelectorAll('.button.number');
 const operationButtons = document.querySelectorAll('.button.operator');
+const previousResult = document.getElementById('previous-result');
 const screen = document.getElementById('result');
 const allCleanButton = document.querySelector('.button.clean');
 const equalsButton = document.querySelector('.button.equal');
