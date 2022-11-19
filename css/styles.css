@@ -1,6 +1,15 @@
-body div {
-    border: 1px solid black;
+body {
+    margin-top: 100px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(156,181,150,0.44303658963585435) 0%, rgba(0,212,255,1) 100%);
 }
+
+body div {
+    /* border: 1px solid black; */
+    font-size: 18px;
+    font-weight: 500;
+}
+
 
 div, p {
     padding: 0;
@@ -11,19 +20,32 @@ div, p {
 #container {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 450px;
     height: 500px;
     margin: auto;
+    padding: 10px;
 }
+
 
 #result {
     height: 75px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    border-left: 1px solid black; 
+    border-right: 1px solid black;
+    background-color: antiquewhite;
+    padding-right: 5px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    border-radius: 5px;
 }
 
 #calculator-buttons {
     display: flex;
     flex-direction: column;
     height: 100%;
+    border-radius: 5px;
 }
 
 #calculator-main {
@@ -34,6 +56,8 @@ div, p {
 #special-operation {
     display: flex;
     flex: 1;
+    gap: 15px;
+    margin:10px;
 }
 
 #special-operation div{
@@ -44,11 +68,11 @@ div, p {
     flex: 3;
     display : flex;
     flex-wrap: wrap;
-    border: 1px solid black;
+    gap: 15px;
 }
 
 #numbers div {
-    width: calc(100% / 3);
+    width: calc(100% / 3.5);
     /* padding: 1px 0; */
 }
 
@@ -56,6 +80,7 @@ div, p {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 15px
 }
 
 #operation div{
@@ -68,3 +93,50 @@ div, p {
     justify-content: center;
     align-items: center;
 }
+
+.button.number,
+.button.decimal {
+    background-color: rgb(255, 255, 255);
+}
+
+.button.clean {
+    background-color: #faa;
+}
+
+.button.delete {
+    background-color: #aaf;
+}
+
+.button.number:hover,
+.button.decimal:hover,
+.button.operator:hover,
+.button.equal:hover{
+    filter: brightness(85%);
+}
+
+
+.button.equal {
+    background-color: rgb(234, 234, 79);
+}
+
+.button.operator {
+    background-color: rgb(182, 192, 110);
+}
+
+.button,
+#container,
+#special-operation div {
+    border: 1px solid black; 
+    border-radius: 5px;
+}
+
+
+.button {
+    border-radius: 5px;
+}
+
+#container {
+    background-color: rgb(114, 104, 104); 
+}
+
+
