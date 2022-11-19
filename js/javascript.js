@@ -42,13 +42,13 @@ function divide(a, b) {
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
-            return a + b;
+            return Number(a + b).toFixed(7);
         case '-': 
-            return a - b;
+            return Number(a - b).toFixed(7);
         case '*': 
-            return a * b;
+            return Number(a * b).toFixed(7);
         case '/': 
-            return a / b;
+            return Number(a / b).toFixed(7);
         default:
             throw 'Illegal operation'
 
